@@ -1,0 +1,87 @@
+<div class="container mt-3">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Resim Seç
+  </button>
+
+  <div class="imagePreview mt-3" *ngIf="imageURL && imageURL !== ''">
+    <img width="250" [src]="imageURL" >
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="form-floating">
+            <select class="form-select" (change)="getAlbumById($event)" id="floatingSelectGrid"
+              aria-label="Floating label select example">
+              <option selected>Bir Seçim Yapınız</option>
+              <option *ngFor="let album of albums" [value]="album.id">
+                {{ album.albumName }}
+              </option>
+            </select>
+            <label for="floatingSelectGrid">Album Seçiniz</label>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="getImage">
+            <label *ngFor="let imageName of albumm.imageNames" >
+              <input type="radio" name="test" [value]="imageName" (change)="selectedImage($event)" >
+              <img src="{{ 'http://localhost:8080/api/v1/images/' + imageName }}" class="img-thumbnail" width="100"
+                alt="..." />
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Kapat
+          </button>
+          <button (click)="viewSeletedImage()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Seç</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-3">
+    <form [formGroup]="newsCreateForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-12 ">
+                <div class="form-floating">
+                    <input name="userName" class="form-control text-success" placeholder="Havuz Numarası" type="text"
+                        formControlName="newsTitle" id="poolNumber" />
+                    <label for="poolNumber" class="text-primary fst-italic">Haber Başlığı</label>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                
+                <div>
+                    <ckeditor formControlName="newsBody" [editor]="Editor"></ckeditor>
+                </div>
+            </div>
+            <div class="col-12  mt-3">
+            <select class="form-select text-success" id="accountNonExpired" aria-label="Floating label select example"
+                formControlName="deploy">
+                <option selected disabled class="text-success fst-italic fw-bold">
+                    Yayınlanma Durumu
+                </option>
+                <option value="true">Yayınla</option>
+                <option value="false">Taslak</option>
+            </select>
+        </div>
+        </div>
+     
+            
+      
+        <div class="col-4 col-sm-3 mt-3">
+            <div class="form-group d-grid gap-2">
+                <button type="submit" class="btn btn-warning btn-block fw-bold" >Kaydet</button>
+            </div>
+        </div>
+    </form>
+  
+ 
+</div>
+
+
+
+</div>

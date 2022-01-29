@@ -1,0 +1,40 @@
+<div class="container mt-3">
+    <form [formGroup]="imageUploadForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+           
+          
+            <div class="col-12  mt-3">
+                <div class="form-floating">
+                    <select class="form-select" formControlName="albumId" id="floatingSelectGrid"
+                      aria-label="Floating label select example">
+                      <option selected>Bir Seçim Yapınız</option>
+                      <option *ngFor="let album of albums" [value]="album.id">
+                        {{ album.albumName }}
+                      </option>
+                    </select>
+                    <label for="floatingSelectGrid">Album Seçiniz</label>
+                  </div>
+        </div>
+        </div>
+     
+            <div class="row">
+                <div class="col-12 col-sm-6 mt-2">
+
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" accept="image/*" (change)="onFileChange($event)" id="inputGroupFile02" >
+                        
+                    </div>
+                </div>
+            </div>
+      
+        <div class="col-4 col-sm-3">
+            <div class="form-group d-grid gap-2">
+                <button  type="submit" class="btn btn-warning btn-block fw-bold" >Kaydet</button>
+            </div>
+        </div>
+    </form>
+    <div class="imagePreview"  *ngIf="imageURL && imageURL !== ''">
+    <img width="250" [src]="imageURL" >
+  </div>
+ 
+</div>
